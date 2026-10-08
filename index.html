@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>JB Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: navy header band, one card with a gated contact panel, two-column body (experience | skills) that stacks on phones */
+:root{
+  --bg:#eef1f6; --surface:#ffffff; --surface-2:#f5f7fb; --fg:#1d2533; --muted:#5a6578;
+  --navy:#1e3a5f; --navy-2:#335d8d; --accent:#e8661a; --accent-fg:#ffffff;
+  --line:#dbe1ea; --ok-bg:#e8f4ec; --ok-fg:#1f6b3a; --err-fg:#b42318;
+  --hero-fg:#ffffff; --badge-bg:#1e3a5f; --badge-fg:#ffffff;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f141c; --surface:#171e29; --surface-2:#1c2533; --fg:#e4e9f1; --muted:#9aa6b8;
+  --navy:#1a2f4c; --navy-2:#27466d; --accent:#f07a33; --accent-fg:#160a02;
+  --line:#2a3546; --ok-bg:#16301f; --ok-fg:#8fd6a6; --err-fg:#ff8a7a;
+  --badge-bg:#26364d; --badge-fg:#dfe7f3; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f141c; --surface:#171e29; --surface-2:#1c2533; --fg:#e4e9f1; --muted:#9aa6b8;
+  --navy:#1a2f4c; --navy-2:#27466d; --accent:#f07a33; --accent-fg:#160a02;
+  --line:#2a3546; --ok-bg:#16301f; --ok-fg:#8fd6a6; --err-fg:#ff8a7a;
+  --badge-bg:#26364d; --badge-fg:#dfe7f3; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55}
+.hero{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:var(--hero-fg);padding:48px 16px 40px;text-align:center}
+.hero h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(28px,6vw,44px);letter-spacing:.04em;text-wrap:balance}
+.hero p{margin:10px 0 0;opacity:.85;font-size:15px;letter-spacing:.06em;text-transform:uppercase}
+.wrap{padding-inline:16px;padding-block:24px 48px}
+.card{max-width:1100px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.gate{padding:24px;background:var(--surface-2);border-bottom:1px solid var(--line);display:grid;gap:14px}
+.gate h2{margin:0;font-family:var(--display);font-size:18px;color:var(--fg)}
+.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+label{display:grid;gap:4px;font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.03em}
+input{font:inherit;color:var(--fg);background:var(--surface);width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px}
+input:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.hint{margin:0;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.hint strong{color:var(--fg);font-variant-numeric:tabular-nums;user-select:all}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{font:inherit;font-weight:600;background:var(--accent);color:var(--accent-fg);border:none;padding:11px 18px;border-radius:8px;cursor:pointer}
+.btn:hover{filter:brightness(1.06)}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line);padding:6px 10px;font-size:13px}
+.msg{margin:0;font-size:14px;min-height:1.2em}
+.msg.err{color:var(--err-fg)}
+.contact{display:grid;gap:6px;padding:16px 18px;background:var(--ok-bg);color:var(--fg);border-radius:10px}
+.contact h3{margin:0 0 4px;font-size:15px;color:var(--ok-fg)}
+.contact p{margin:0;user-select:all;overflow-wrap:anywhere}
+.content{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+.main,.side{padding:28px 24px;min-width:0}
+.side{background:var(--surface-2);border-left:1px solid var(--line)}
+section+section{margin-top:28px}
+h2.sec{font-family:var(--display);font-size:20px;color:var(--fg);margin:0 0 12px;padding-bottom:6px;border-bottom:3px solid var(--accent)}
+.job{margin-top:18px}
+.job h3{margin:0;font-size:17px}
+.job .role{margin:2px 0 6px;color:var(--muted);font-weight:500;font-size:14px;font-variant-numeric:tabular-nums}
+ul{margin:0;padding-left:20px;display:grid;gap:4px}
+.badges{display:flex;flex-wrap:wrap;gap:6px}
+.badge{background:var(--badge-bg);color:var(--badge-fg);padding:6px 11px;border-radius:999px;font-size:13px}
+@media (max-width:800px){.fields{grid-template-columns:1fr}.content{grid-template-columns:1fr}.side{border-left:none;border-top:1px solid var(--line)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<style>[hidden]{display:none!important}body{margin:0}</style>
+</head>
+<body>
+
+
+<header class="hero">
+  <h1 id="fullName">J◻◻◻◻h B◻◻◻◻◻◻◻n</h1>
+  <p>Sales • Business Development • Operations Leadership</p>
+</header>
+
+<div class="wrap">
+<div class="card">
+  <div class="gate">
+    <form id="gate" class="gate-form" style="display:grid;gap:14px" novalidate>
+      <h2>Unlock full name, contact info and PDF</h2>
+      <div class="fields">
+        <label for="visitor">Your name<input id="visitor" autocomplete="name"></label>
+        <label for="company">Business name<input id="company" autocomplete="organization"></label>
+        <label for="code">Access code<input id="code" type="password" inputmode="numeric" maxlength="4" autocomplete="off"></label>
+      </div>
+      <p class="hint">🔒 Need the access code? Text <strong id="phoneText">347-768-2249</strong> with your name and business name.
+        <button type="button" class="btn ghost" id="copyPhone">Copy number</button></p>
+      <div class="row"><button type="submit" class="btn">Unlock</button><p class="msg" id="gateMsg" role="status"></p></div>
+    </form>
+
+    <div id="unlocked" hidden style="display:grid;gap:14px">
+      <p class="msg" id="approvedMsg"></p>
+      <div class="contact" id="contact"></div>
+      <div class="row"><a class="btn" id="pdfBtn" href="JB_Resume.pdf" download="JB_Resume.pdf" style="text-decoration:none">Download PDF</a></div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="main">
+      <section>
+        <h2 class="sec">Professional Summary</h2>
+        <p>Driven, self-motivated sales professional and operations leader with a proven track record of growing business operations from the ground up. Experienced in complex sales cycles, mentoring sales talent, implementing workflow automation, and driving profitability.</p>
+      </section>
+      <section>
+        <h2 class="sec">Professional Experience</h2>
+        <div class="job">
+          <h3>Quick Transfer Trucking</h3>
+          <p class="role">Sales &amp; Business Operations Lead · 2019 – Present</p>
+          <ul>
+            <li>Built company operations independently from the ground up.</li>
+            <li>Established strong profitability and commission structures.</li>
+            <li>Mastered logistics, shipping, and trucking sales.</li>
+            <li>Integrated AI technologies and workflow automation.</li>
+            <li>Mentored junior sales staff in prospecting, CRM, and deal execution.</li>
+          </ul>
+        </div>
+        <div class="job">
+          <h3>MassMutual Life Insurance</h3>
+          <p class="role">Sales &amp; Prospecting Specialist · 2016 – 2019</p>
+          <ul>
+            <li>Conducted high-volume sales outreach.</li>
+            <li>Worked with business owners and high-net-worth clients.</li>
+            <li>Developed communication, negotiation, and problem-solving skills.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <aside class="side">
+      <section><h2 class="sec">Industry Expertise</h2><div class="badges"><span class="badge">Trucking Logistics</span><span class="badge">Shipping</span><span class="badge">Business Development</span><span class="badge">Sales Negotiation</span><span class="badge">Client Retention</span></div></section>
+      <section><h2 class="sec">Leadership</h2><div class="badges"><span class="badge">Sales Leadership</span><span class="badge">Mentorship</span><span class="badge">CRM Setup</span><span class="badge">Workflow Optimization</span></div></section>
+      <section><h2 class="sec">Communication</h2><div class="badges"><span class="badge">Cold Calling</span><span class="badge">Client Relations</span><span class="badge">Professional Communication</span><span class="badge">Copywriting</span></div></section>
+      <section><h2 class="sec">Technology</h2><div class="badges"><span class="badge">Microsoft Excel</span><span class="badge">Microsoft Word</span><span class="badge">AI Tools</span><span class="badge">Automation</span><span class="badge">CRM Systems</span></div></section>
+    </aside>
+  </div>
+</div>
+</div>
+
+<script>
+var _d={n:'Sm9zZXBoIEJsYXVzdGVpbg==',l:'V2lsbGlhbXNidXJnLCBCcm9va2x5biwgTlk=',p:'MzQ3LTc2OC0yMjQ5',e:'QmxhdXN0ZWluMjAyM0BnbWFpbC5jb20='};
+function u(k){return atob(_d[k]);}
+var $=function(id){return document.getElementById(id);};
+
+$('copyPhone').addEventListener('click',function(){
+  var btn=this, t='3477682249';
+  function selectIt(){var r=document.createRange();r.selectNodeContents($('phoneText'));var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Selected — press Copy';}
+  try{navigator.clipboard.writeText(t).then(function(){btn.textContent='Copied';},selectIt);}catch(e){selectIt();}
+});
+
+$('gate').addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var msg=$('gateMsg'); msg.className='msg err';
+  var v=$('visitor').value.trim(), c=$('company').value.trim(), code=$('code').value.trim();
+  if(!v||!c){msg.textContent='Enter your name and business name.';return;}
+  if(btoa(code)!=='MDAwMA=='){msg.textContent='That code is incorrect. Text 347-768-2249 to get the access code.';$('code').value='';$('code').focus();return;}
+  $('fullName').textContent=u('n').toUpperCase();
+  var ct=$('contact'); ct.textContent='';
+  var h=document.createElement('h3'); h.textContent='Contact information'; ct.appendChild(h);
+  [['📍 ',u('l')],['📞 ',u('p')],['✉️ ',u('e')]].forEach(function(r){var p=document.createElement('p');p.textContent=r[0]+r[1];ct.appendChild(p);});
+  $('approvedMsg').textContent='Access approved for '+v+' ('+c+').';
+  $('gate').hidden=true; $('unlocked').hidden=false;
+});
+
+</script>
+
+</body>
+</html>
